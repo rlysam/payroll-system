@@ -16,7 +16,7 @@ def encrypt(plain_text, password):
 
     # create cipher config
     cipher_config = AES.new(private_key, AES.MODE_GCM)
-
+    print(salt)
     
     # return a dictionary with the encrypted text
     cipher_text, tag = cipher_config.encrypt_and_digest(bytes(plain_text, 'utf-8'))
@@ -25,11 +25,7 @@ def encrypt(plain_text, password):
         'salt': b64encode(salt).decode('utf-8'),
         'nonce': b64encode(cipher_config.nonce).decode('utf-8'),
         'tag': b64encode(tag).decode('utf-8'),
-
-        # newdict = {"salt":salt., "nonce":none}
-        # newdict(salt)
     }
-
 
 def decrypt(enc_dict, password):
     # decode the dictionary entries from base64
@@ -59,7 +55,6 @@ def main():
     encrypted = encrypt("The secretest message here", password)
     print("test")
     print(encrypted)
-    print("test")
 
     # Let us decrypt using our original password
     decrypted = decrypt(encrypted, password)
