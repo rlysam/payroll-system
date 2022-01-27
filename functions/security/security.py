@@ -7,24 +7,22 @@ import os
 from Cryptodome.Random import get_random_bytes
 
 # Salt pa lang ang na copy paste
-def encrypt(plain_text, password):
-    # generate a random saltte
-    salt = b'\x9f\x13\x1f\xde\xe3\xa2+\xcf\xbd\xf8.O\xcf\x81\xca@'
-    print("Salt: ", salt ,"\n")
+def encrypt(data):
+    password = "testeithwetwoeitew"
+  
+     # generate a random salt
+    salt = get_random_bytes(AES.block_size)
 
     # use the Scrypt KDF to get a private key from the password
     private_key = hashlib.scrypt(
         password.encode(), salt=salt, n=2**14, r=8, p=1, dklen=32)
-    print("Private Key: ", private_key ,"\n")
 
     # create cipher configtest
     cipher_config = AES.new(private_key, AES.MODE_GCM)
-    print("Cipher Config: ", cipher_config ,"\n")
 
     # return a dictionary with the encrypted text
-    cipher_text, tag = cipher_config.encrypt_and_digest(bytes(plain_text, 'utf-8'))
-    print("Cipher: ", cipher_text ,"\n")
-    print("Tag: ", tag ,"\n")
+    cipher_text, tag = cipher_config.encrypt_and_digest(bytes(data, 'utf-8'))
+
     return {
         'cipher_text': b64encode(cipher_text).decode('utf-8'),
         'salt': b64encode(salt).decode('utf-8'),
@@ -32,7 +30,9 @@ def encrypt(plain_text, password):
         'tag': b64encode(tag).decode('utf-8'),
     }
 
-def decrypt(enc_dict, password):
+def decrypt(enc_dict):
+    password = "testeithwetwoeitew"
+  
     # decode the dictionary entries from base64
     salt = b64decode(enc_dict['salt'])
     cipher_text = b64decode(enc_dict['cipher_text'])
@@ -54,15 +54,14 @@ def decrypt(enc_dict, password):
 
 
 def main():
-    password = input("PASSWORD: ")
+    message = input("Message: ")
 
     # First let us encrypt secret message
-    encrypted = encrypt("The secretest message here", password)
+    encrypted = encrypt(message)
     print("Encrypted Text: " , encrypted, "\n")
 
     # Let us decrypt using our original password
-    decrypted = decrypt(encrypted, password)
-
+    decrypted = decrypt(encrypted)
     print(bytes.decode(decrypted))
 
 main()
