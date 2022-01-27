@@ -24,8 +24,7 @@ def login():
 		print(type(jsonData)) # str
 		dictData = ast.literal_eval(jsonData)
 		sayHello(dictData)
-		response = 'Completed'
-	response = 'Completed'
+	response = 'Success : 200'
 	return response
 
 # Ewan eto ata yung unanng titignan
