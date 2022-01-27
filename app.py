@@ -3,6 +3,8 @@
 from crypt import methods
 from flask import *
 from functions.sample_file.hello import *
+# import json
+import ast
 
 # gawa ng Flask object
 app = Flask(__name__)
@@ -14,19 +16,16 @@ def welcome():
 
 # '/login' parang functions, ito tatawagin mismo
 # note: lahat ng parameters ay nasa body
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/receiveData', methods=['POST'])
 def login():
-# GET kapag nasa URL yung se-send na data, wala ata tayo gagamitin na ganito para SECURE :D
-  if request.method=='GET':
-	  return 'mali yung request type'
-# If POST ang tinawag, gagawin to
-  if request.method=='POST':
-	#  no need to make a MODEL CLASS
-    jsonData = request.get_json()
-    print('\n\nlaman ng request.value')
-    print(jsonData)
-
-    return jsonify(jsonData) #converted na sa as JSON
+	if request.method=='POST':
+		jsonData = request.get_json()
+		print('\n\nlaman ng request.value:\n\n')
+		print(type(jsonData)) # str
+		dictData = ast.literal_eval(jsonData)
+		sayHello(dictData)
+	response = 'Success : 200'
+	return response
 
 # Ewan eto ata yung unanng titignan
 if __name__ == '__main__':
