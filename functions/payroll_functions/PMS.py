@@ -15,9 +15,9 @@ def payRef():
 
 
 	payRefData = {
-      'pay_date': PayDate,
-      'reference': Reference,
-      'philhealth_number': PhilHealthNumber,
+		'pay_date': PayDate,
+		'reference': Reference,
+    	'philhealth_number': PhilHealthNumber,
 	}
 	return payRefData
 
@@ -26,45 +26,63 @@ def payRef():
 
 def MonthlySalary(map): #ito yung map na galing sa flutter
 
-        # TODO (Kate) gawin  yun example ko dito
-        # BS = float(BasicSalary.get()) #! before
-        BS = float(map['basic_salary']) #! AFTER : example ito na yung galing kay Flutter
-        DM = float(map['deminimis'])
-        OT = float(map['overtime'])
-        #BS = float(BasicSalary.get()) if '.' in BasicSalary.get() else str(BasicSalary.get())
-        #DM = float(DeMinimis.get()) if '.' in DeMinimis.get() else str(DeMinimis.get())
-        #OT = float(OverTime.get()) if '.' in OverTime.get() else str(OverTime.get())
-    
-        # TODO (Kate)
-        # ! hindi na .set yung gagamitin
-        # * note str() kapag di naman gagamitin sa computation
+		# TODO (Kate) gawin  yun example ko dito
+		# BS = float(BasicSalary.get()) #! before
+		BS = float(map['basic_salary']) #! AFTER : example ito na yung galing kay Flutter
+		DM = float(map['deminimis'])
+		OT = float(map['overtime'])
+		#BS = float(BasicSalary.get()) if '.' in BasicSalary.get() else str(BasicSalary.get())
+		#DM = float(DeMinimis.get()) if '.' in DeMinimis.get() else str(DeMinimis.get())
+		#OT = float(OverTime.get()) if '.' in OverTime.get() else str(OverTime.get())
+		
+		# TODO (Kate)
+		# ! hindi na .set yung gagamitin
+		# * note str() kapag di naman gagamitin sa computation
 
-        M_SSS = ((BS + DM + OT) * 0.045)
-        sss = "₱", str('%.2f' % (M_SSS))
-        
-        M_Loan = float(map['loan']) 
-        loan = "₱", str('%.2f' % (M_Loan))
+		M_SSS = ((BS + DM + OT) * 0.045)
+		sss = "₱", str('%.2f' % (M_SSS))
+			
+		M_Loan = float(map['loan']) 
+		loan = "₱", str('%.2f' % (M_Loan))
 
-        M_PhilHealthPayment = ((BS + DM + OT) * 0.04 / 12)
-        philhealth_payment = "₱", str('%.2f' % (M_PhilHealthPayment))
+		M_PhilHealthPayment = ((BS + DM + OT) * 0.04 / 12)
+		philhealth_payment = "₱", str('%.2f' % (M_PhilHealthPayment))
 
-        M_HDMF = (100)
-        hdmf = "₱", str('%.2f' % (M_HDMF))
-        
-        TaxableIncome = ((BS + DM + OT)-(M_SSS + M_HDMF + M_PhilHealthPayment))
-        MTax = (2500 + (TaxableIncome - 33333) * 0.25)
-        tax = "₱", str('%.2f' % (MTax))
+		M_HDMF = (100)
+		hdmf = "₱", str('%.2f' % (M_HDMF))
+			
+		TaxableIncome = ((BS + DM + OT)-(M_SSS + M_HDMF + M_PhilHealthPayment))
+		MTax = (2500 + (TaxableIncome - 33333) * 0.25)
+		tax = "₱", str('%.2f' % (MTax))
 
-        Deduct = (MTax + M_SSS + M_Loan + M_PhilHealthPayment + M_HDMF)
-        deductions = "₱", str('%.2f' % (Deduct))
+		Deduct = (MTax + M_SSS + M_Loan + M_PhilHealthPayment + M_HDMF)
+		deductions = "₱", str('%.2f' % (Deduct))
 
-        gross_pay = "₱", str('%.2f' % (BS + DM + OT))
+		gross_pay = "₱", str('%.2f' % (BS + DM + OT))
 
-        NetPayAfter = (BS + DM + OT) - Deduct
-        net_pay = "₱", str('%.2f' % (NetPayAfter))
+		NetPayAfter = (BS + DM + OT) - Deduct
+		net_pay = "₱", str('%.2f' % (NetPayAfter))
 
-        taxable_pay = tax
-        pension_pay = sss
-        other_payment_due = (0)
-        
-        # TODO (Sam) yung ibang  send to database yung buong transaction na to including yung Employee name...
+		taxable_pay = tax
+		pension_pay = sss
+		other_payment_due = (0)
+	
+	
+		MonthlySalaryData = {
+			'sss': sss,
+			'philhealth_payment': philhealth_payment,
+			'hdmf': hdmf,
+			'tax': tax,
+			'deductions': deductions,
+			'gross_pay': gross_pay,
+			'net_pay': net_pay,
+			'deductions': deductions,
+			'gross_pay': gross_pay,
+			'net_pay': net_pay,
+			'taxable_pay': taxable_pay,
+			'pension_pay': pension_pay,
+			'other_payment_due': other_payment_due,
+		}
+		return MonthlySalaryData
+			
+			# TODO (Sam) yung ibang  send to database yung buong transaction na to including yung Employee name...
