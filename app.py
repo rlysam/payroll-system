@@ -15,65 +15,36 @@ app = Flask(__name__)
 def welcome():
     return "Welcome. This is the index for InfoSec Backend. \n Visit the GitHub Repo: rlysam/payroll-system"
 
-# # TODO (Route) EXECUTE > Send Payslip PDF to Employee via E-Mail
-# # ! NOTE: RESEND Data from Flutter, then call the payslip_generator() lastly, payslip generator will use gmail to send to employee
-# @app.route('/receiveData', methods=['POST'])
-# def receivePayrollAll():
-# 	if request.method=='POST':
-# 		jsonData = request.get_json()
-# 		# print('\n\nlaman ng request.value:\n\n')
-# 		# print(type(jsonData)) # str
-# 		dictData = ast.literal_eval(jsonData)
-# 		sayHello(dictData)
-# 		# sample usage:	print(sample['employee_name'])
-# 	response = 'Success'
-# 	return response
-
-
-# # TODO (Route) receive PayrollAll  	only needed data (BSDM)
-# # TODO (Route) return 'COMPUTATIONS'
-# # ! NOTE: ONLY NEEDED for computations
-# # ! NOTE: BS, DM, OT, Loan
-# # note: lahat ng parameters ay nasa body
-# @app.route('/receiveInitialData', methods=['POST'])
-# def receivePayrollAll():
-# 	if request.method=='POST':
-# 		jsonData = request.get_json()
-# 		# print('\n\nlaman ng request.value:\n\n')
-# 		# print(type(jsonData)) # str
-# 		dictData = ast.literal_eval(jsonData)
-# 		sayHello(dictData)
-# 		# sample usage:	print(sample['employee_name'])
-# 	response = 'Computations from monthly salary'
-# 	return response
+@app.route('/receiveInitialData', methods=['POST'])
+def receiveBS_DM_OT_LOAN():
+	securedData = {}
+	if request.method=='POST':
+		jsonData = request.get_json()
+		mapData = ast.literal_eval(jsonData)
+		unsafeComputedData = MonthlySalary(mapData) # Map
+		securedData = encrypt(str(unsafeComputedData)) # encrypted data
+	response = jsonify(securedData)
+	return response
 
 # * Complete *
-# TODO (Route) SEND PayRef()
-# ! NOTE: send PayRef
-# note: lahat ng parameters ay nasa body
 @app.route('/sendPayRef', methods=['POST'])
 def sendPayRef():
 	unsafeData = payRef()
 	securedData = encrypt(str(unsafeData))
 	return jsonify(securedData)
 
-# * Complete *
-# TODO (Route) receive PayrollAll 
-# TODO return nothing
-# ! NOTE: ALL DATA
-# ! NOTE: final before adding ENTRY TO DATABASE
-# note: lahat ng parameters ay nasa body
+# * Complete * ALMOST
 @app.route('/receiveData', methods=['POST'])
-def receivePayrollAll():
+def receivePayrollAllAndProcess():
 	if request.method=='POST':
 		jsonData = request.get_json()
-		# print('\n\nlaman ng request.value:\n\n')
-		# print(type(jsonData)) # str
-		dictData = ast.literal_eval(jsonData)
-		sayHello(dictData)
-		# sample usage:	print(sample['employee_name'])
-		# call function ni Ryan
-	response = 'Success'
+		mapData = ast.literal_eval(jsonData)
+		# sayHello(mapData)
+		# TODO 1. Call openedData = decrypt(mapData)
+		# TODO 2. Call toExcelAndSendToEmail(openedData)
+		# TODO 3. Call toFirebaseDatabase(openedData)
+
+	response = 'Success. Sent receipt to employee email and transaction to database...'
 	return response
 
 # Ewan eto ata yung unanng titignan
