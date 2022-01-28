@@ -4,7 +4,7 @@ import time
 import datetime
 # import string
 
-def PayRef():
+def payRef():
 	PayDate = (time.strftime("%d/%m/%y"))
 
 	Refpay = random.randint(20000, 709467)
@@ -13,9 +13,16 @@ def PayRef():
 	PhilHealthpay = random.randint(4200, 9467)
 	PhilHealthNumber = ("PH" + str(PhilHealthpay))
 
-	return 
+	payRefData = {
+      'pay_date': PayDate,
+      'reference': Reference,
+      'philhealth_number': PhilHealthNumber,
+	}
+	return payRefData
+
 
     # COMPUTATIONS lang function dito
+
 def MonthlySalary(map): #ito yung map na galing sa flutter
 
         # TODO (Kate) gawin  yun example ko dito
