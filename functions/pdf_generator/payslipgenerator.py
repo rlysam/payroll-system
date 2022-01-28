@@ -26,44 +26,40 @@ start = 200
 start_2 = 700
 
 #Payslip variables
-company_name = 'Sample Company Name Inc.'
+company_name = 'SGV Co./EY Philippines'
 month_year = 'January 2022'
 
 def create_payslip():
     for i in range (2, 42):
         #eading values from excel file
-        emp_name = sheet.cell(row = i, column = 1).value
-        emp_last_name = sheet.cell(row = i, column = 2).value
-        address = sheet.cell(row = i, column = 3).value
-        refer = sheet.cell(row = i, column = 4).value
-        empyer_name = sheet.cell(row = i, column = 5).value
-        email = sheet.cell(row = i, column = 6).value
-        job_stats = sheet.cell(row = i, column = 7).value
-        post_code = sheet.cell(row = i, column = 8).value
-        gender = sheet.cell(row = i, column = 9).values
-        grade = sheet.cell(row = i, column = 10).value
-        department = sheet.cell(row = i, column = 11).value
-        dmWeight = sheet.cell(row = i, column = 12).value
-        bscSalary = sheet.cell(row = i, column = 13).value
-        ovrtime = sheet.cell(row = i, column = 14).value
-        grssPay = sheet.cell(row = i, column = 15).value
-        netPay = sheet.cell(row = i, column = 16).value
-        tax = sheet.cell(row = i, column = 17).value
-        SSS = sheet.cell(row = i, column = 18).value
-        loan = sheet.cell(row = i, column = 19).value
-        philhealth_payment = sheet.cell(row = i, column = 20).value
-        pagIBIG = sheet.cell(row = i, column = 21).value
-        deductions = sheet.cell(row = i, column = 22).value
-        payDate = sheet.cell(row = i, column = 23).value
-        taxPeriod = sheet.cell(row = i, column = 24).value
-        philhealth_number = sheet.cell(row = i, column = 25).value
-        philhealth_code = sheet.cell(row = i, column = 26).value
-        taxablePay = sheet.cell(row = i, column = 27).value
-        sssPay = sheet.cell(row = i, column = 28).value
-        other_pay_due = sheet.cell(row = i, column = 29).value
+        employee_name = sheet.cell(row = i, column = 1).value
+        address = sheet.cell(row = i, column = 2).value
+        reference = sheet.cell(row = i, column = 3).value
+        employer_name = sheet.cell(row = i, column = 4).value
+        email = sheet.cell(row = i, column = 5).value
+        job_status = sheet.cell(row = i, column = 6).value
+        postcode = sheet.cell(row = i, column = 7).value
+        grade = sheet.cell(row = i, column = 8).value
+        department = sheet.cell(row = i, column = 9).value
+        deminimis = sheet.cell(row = i, column = 10).value
+        basic_salary = sheet.cell(row = i, column = 11).value
+        overtime = sheet.cell(row = i, column = 12).value
+        gross_pay = sheet.cell(row = i, column = 13).value
+        net_pay = sheet.cell(row = i, column = 14).value
+        tax = sheet.cell(row = i, column = 15).value
+        sss = sheet.cell(row = i, column = 16).value
+        loan = sheet.cell(row = i, column = 17).value
+        philhealth_payment = sheet.cell(row = i, column = 18).value
+        hdmf = sheet.cell(row = i, column = 19).value
+        deductions = sheet.cell(row = i, column = 20).value
+        pay_date = sheet.cell(row = i, column = 21).value
+        philhealth_number = sheet.cell(row = i, column = 22).value
+        taxable_pay = sheet.cell(row = i, column = 23).value
+        pension_pay = sheet.cell(row = i, column = 24).value
+        other_payment_due = sheet.cell(row = i, column = 25).value
 
         #Creating a pdf file and setting a naming convention
-        c = canvas.Canvas('data/'+str(emp_name)+'_'+str(emp_last_name)+'_'+ month_year + '.pdf' )
+        c = canvas.Canvas('data/'+str(employee_name)+'_'+ month_year + '.pdf' )
         #Page settings (size/font)
         c.setPageSize((page_width, page_height))
         c.setFont('Ayar',80)
@@ -80,7 +76,7 @@ def create_payslip():
         #Drawing payslip related information
         c.setFont('Ayar',45)
         c.drawString(start, y, 'Employee\'s name:')
-        c.drawString(start_2, y, str(emp_name) + ' ' + str(emp_last_name))
+        c.drawString(start_2, y, str(employee_name) + ' ')
         y -= spread
 
         c.drawString(start, y, 'Address:')
@@ -88,11 +84,11 @@ def create_payslip():
         y -= spread
 
         c.drawString(start, y, 'Reference:')
-        c.drawString(start_2, y, str(refer))
+        c.drawString(start_2, y, str(reference))
         y -= spread
 
         c.drawString(start, y, 'Employer Name:')
-        c.drawString(start_2, y, str(empyer_name))
+        c.drawString(start_2, y, str(employer_name))
         y -= spread
 
         c.drawString(start, y, 'Email:')
@@ -100,15 +96,11 @@ def create_payslip():
         y -= spread
         
         c.drawString(start, y, 'Job Status:')
-        c.drawString(start_2, y, str(job_stats))
+        c.drawString(start_2, y, str(job_status))
         y -= spread
 
         c.drawString(start, y, 'Post Code:')
-        c.drawString(start_2, y, str(deductions))
-        y -= spread
-
-        c.drawString(start, y, 'Gender:')
-        c.drawString(start_2, y, str(gender))
+        c.drawString(start_2, y, str(postcode))
         y -= spread
 
         c.drawString(start, y, 'Grade:')
@@ -119,24 +111,24 @@ def create_payslip():
         c.drawString(start_2, y, str(department))
         y -= spread
 
-        c.drawString(start, y, 'De Minimis Weighting:')
-        c.drawString(start_2, y, str(dmWeight))
+        c.drawString(start, y, 'De Minimis:')
+        c.drawString(start_2, y, str(deminimis))
         y -= spread
 
         c.drawString(start, y, 'Basic Salary:')
-        c.drawString(start_2, y, str(bscSalary))
+        c.drawString(start_2, y, str(basic_salary))
         y -= spread
 
         c.drawString(start, y, 'Overtime:')
-        c.drawString(start_2, y, str(ovrtime))
+        c.drawString(start_2, y, str(overtime))
         y -= spread
 
         c.drawString(start, y, 'Gross Pay:')
-        c.drawString(start_2, y, str(grssPay))
+        c.drawString(start_2, y, str(gross_pay))
         y -= spread
 
         c.drawString(start, y, 'Net Pay:')
-        c.drawString(start_2, y, str(netPay))
+        c.drawString(start_2, y, str(net_pay))
         y -= spread
 
         c.drawString(start, y, 'Tax:')
@@ -144,7 +136,7 @@ def create_payslip():
         y -= spread
 
         c.drawString(start, y, 'SSS:')
-        c.drawString(start_2, y, str(SSS))
+        c.drawString(start_2, y, str(sss))
         y -= spread
 
         c.drawString(start, y, 'Loan:')
@@ -156,7 +148,7 @@ def create_payslip():
         y -= spread
 
         c.drawString(start, y, 'HDMF (Pag-IBIG):')
-        c.drawString(start_2, y, str(pagIBIG))
+        c.drawString(start_2, y, str(hdmf))
         y -= spread
 
         c.drawString(start, y, 'Deductions:')
@@ -164,35 +156,27 @@ def create_payslip():
         y -= spread
 
         c.drawString(start, y, 'Pay Date - dd/mm/yy :')
-        c.drawString(start_2, y, str(payDate))
-        y -= spread
-
-        c.drawString(start, y, 'Tax Period:')
-        c.drawString(start_2, y, str(taxPeriod))
+        c.drawString(start_2, y, str(pay_date))
         y -= spread
 
         c.drawString(start, y, 'PhilHealth Number:')
         c.drawString(start_2, y, str(philhealth_number))
         y -= spread
 
-        c.drawString(start, y, 'PhilHealth Code:')
-        c.drawString(start_2, y, str(philhealth_code))
-        y -= spread
-
         c.drawString(start, y, 'Taxable Pay:')
-        c.drawString(start_2, y, str(taxablePay))
+        c.drawString(start_2, y, str(taxable_pay))
         y -= spread
 
         c.drawString(start, y, 'SSS Pay:')
-        c.drawString(start_2, y, str(sssPay))
+        c.drawString(start_2, y, str(pension_pay))
         y -= spread
 
         c.drawString(start, y, 'Other Payment Due:')
-        c.drawString(start_2, y, str(other_pay_due))
+        c.drawString(start_2, y, str(other_payment_due))
         y -= spread
 
-        c.drawString(start, y, 'Net salary:')
-        c.drawString(start_2, y, str(net_salary))
+        c.drawString(start, y, 'Net Pay:')
+        c.drawString(start_2, y, str(net_pay))
         y -= spread * 3
 
         c.drawString(start, y, 'Signature: ')
