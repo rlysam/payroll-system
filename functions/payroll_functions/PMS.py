@@ -1,15 +1,19 @@
 	# TODO (Sam) 'SEND' to Frontend
+import random
+import time
+import datetime
+# import string
+
 def PayRef():
-	PayDate.set(time.strftime("%d/%m/%y"))
-	#PayDate.set(time.strftime("%x"))
+	PayDate = (time.strftime("%d/%m/%y"))
 
 	Refpay = random.randint(20000, 709467)
-	Refpaid = ("PR" + str(Refpay))
-	Reference.set(Refpaid)
+	Reference = ("PR" + str(Refpay))
 
 	PhilHealthpay = random.randint(4200, 9467)
-	PhilHealthpaid = ("PH" + str(PhilHealthpay))
-	PhilHealthNumber.set(PhilHealthpaid)
+	PhilHealthNumber = ("PH" + str(PhilHealthpay))
+
+	return 
 
     # COMPUTATIONS lang function dito
 def MonthlySalary(map): #ito yung map na galing sa flutter
