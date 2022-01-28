@@ -12,7 +12,7 @@ from PyPDF2 import PdfFileReader, PdfFileMerger
 
 #import the sheet from the excel file
 # wb = openpyxl.load_workbook('data/data_payslip.xlsx')
-wb = openpyxl.load_workbook('data_payslip.xlsx')
+wb = openpyxl.load_workbook('data/data_payslip.xlsx')
 sheet = wb.get_sheet_by_name('employees')
 
 #convert the font so it is compatible
@@ -64,6 +64,13 @@ def create_payslip():
 
 
 
+
+
+        #Saving the pdf file
+        c.save()
+
+
+
 # # basura ata to...
 # def merge_pdfs():
 #     files_dir = 'tutorial' #Select the directory where the pdf files are located
@@ -72,3 +79,6 @@ def create_payslip():
 #     for filename in pdf_files:
 #         merger.append(PdfFileReader(os.path.join(files_dir,filename),'rb')) #Add every pdf to the empty file
 #     merger.write(os.path.join(files_dir,'merged_pdfs.pdf')) #Save the file
+
+create_payslip()
+# merge_pdfs()
