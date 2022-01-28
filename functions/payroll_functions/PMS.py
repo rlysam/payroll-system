@@ -13,6 +13,7 @@ def payRef():
 	PhilHealthpay = random.randint(4200, 9467)
 	PhilHealthNumber = ("PH" + str(PhilHealthpay))
 
+
 	payRefData = {
       'pay_date': PayDate,
       'reference': Reference,
@@ -67,35 +68,3 @@ def MonthlySalary(map): #ito yung map na galing sa flutter
         other_payment_due = (0)
         
         # TODO (Sam) yung ibang  send to database yung buong transaction na to including yung Employee name...
-
-# def writeAllDataToFirebase():
-	# TODO (Sam) call yung functions na gagawin dapat ni Ryan :::
-	# EmployeeName = StringVar()
-	# Address = StringVar()
-	# Reference = StringVar()
-	# EmployerName = StringVar()
-	# Email = StringVar()
-	# JobStatus = StringVar()
-	# DeMinimis = StringVar()
-	# BasicSalary = StringVar()
-	# OverTime = StringVar()
-	# GrossPay = StringVar()
-	# NetPay = StringVar()
-	# Tax = StringVar()
-	# TaxableIncome = StringVar()
-	# SSS = StringVar()
-	# Loan = StringVar()
-	# PhilHealthPayment = StringVar()
-	# HDMF = StringVar()
-	# Deductions = StringVar()
-	# PostCode = StringVar()
-	# Gender = StringVar()
-	# Grade = StringVar()
-	# Department = StringVar()
-	# PayDate = StringVar()
-	# TaxPeriod = StringVar()
-	# PhilHealthNumber = StringVar()
-	# PhilHealthCode = StringVar()
-	# TaxablePay = StringVar()
-	# SSSPay = StringVar()
-	# OtherPaymentDue = StringVar()
