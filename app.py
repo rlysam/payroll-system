@@ -15,6 +15,17 @@ app = Flask(__name__)
 def welcome():
     return "Welcome. This is the index for InfoSec Backend. \n Visit the GitHub Repo: rlysam/payroll-system"
 
+@app.route('/getReport', methods=['POST'])
+def getReport():
+	securedData = {}
+	if request.method=='POST':
+		# ! waiting for Ryan
+		# TODO waiting for Ryan
+		# unsafeReports = getAllTransactionFromFirebase() # Map
+		securedData = encrypt(str(unsafeReports)) # encrypted data
+	response = jsonify(securedData)
+	return response
+
 @app.route('/receiveInitialData', methods=['POST'])
 def receiveBS_DM_OT_LOAN():
 	securedData = {}
@@ -26,27 +37,26 @@ def receiveBS_DM_OT_LOAN():
 	response = jsonify(securedData)
 	return response
 
-# * Complete *
 @app.route('/sendPayRef', methods=['POST'])
 def sendPayRef():
 	unsafeData = payRef()
 	securedData = encrypt(str(unsafeData))
 	return jsonify(securedData)
 
-# * Complete * ALMOST
 @app.route('/receiveData', methods=['POST'])
 def receivePayrollAllAndProcess():
 	if request.method=='POST':
 		jsonData = request.get_json()
 		mapData = ast.literal_eval(jsonData)
-		# sayHello(mapData)
-		# TODO 1. Call openedData = decrypt(mapData)
-		# TODO 2. Call toExcelAndSendToEmail(openedData)
-		# TODO 3. Call toFirebaseDatabase(openedData)
+		openedData = decrypt(mapData)
+		# TODO 1. Call toExcelAndSendToEmail(openedData)
+		# ! waiting for Ryan
+		# TODO 2. Call toFirebaseDatabase(openedData) 
 
 	response = 'Success. Sent receipt to employee email and transaction to database...'
 	return response
 
 # Ewan eto ata yung unanng titignan
 if __name__ == '__main__':
+	# TODO wag na DEBUG Mode pag deploy?
     app.run(debug=True)
