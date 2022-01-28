@@ -5,6 +5,7 @@ from flask import *
 from functions.sample_file.hello import *
 from functions.payroll_functions.PMS import *
 from functions.security.security import *
+from functions.pdf_generator.payslipgenerator import *
 
 # import json
 import ast
@@ -15,6 +16,15 @@ app = Flask(__name__)
 def welcome():
     return "Welcome. This is the index for InfoSec Backend. \n Visit the GitHub Repo: rlysam/payroll-system"
 
+@app.route('/testingPDFgeneratorFromFlutter', methods=['POST'])
+def generateTestPDF():
+
+	create_payslip() # TODO TESTING
+	response = 'PDF Generated successfully.'
+	return response
+
+# TODO --- waiting for LYAH
+# *DONE  --- waiting
 @app.route('/getReport', methods=['POST'])
 def getReport():
 	securedData = {}
@@ -26,6 +36,7 @@ def getReport():
 	response = jsonify(securedData)
 	return response
 
+# *DONE 
 @app.route('/receiveInitialData', methods=['POST'])
 def receiveBS_DM_OT_LOAN():
 	securedData = {}
@@ -37,12 +48,14 @@ def receiveBS_DM_OT_LOAN():
 	response = jsonify(securedData)
 	return response
 
+# *DONE 
 @app.route('/sendPayRef', methods=['POST'])
 def sendPayRef():
 	unsafeData = payRef()
 	securedData = encrypt(str(unsafeData))
 	return jsonify(securedData)
 
+# *DONE --- waiting
 @app.route('/receiveData', methods=['POST'])
 def receivePayrollAllAndProcess():
 	if request.method=='POST':
