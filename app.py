@@ -4,6 +4,7 @@ from crypt import methods
 from flask import *
 from functions.sample_file.hello import *
 from functions.payroll_functions.PMS import *
+from functions.security.security import *
 
 # import json
 import ast
@@ -30,7 +31,7 @@ def welcome():
 
 
 # # TODO (Route) receive PayrollAll  	only needed data (BSDM)
-# # TODO (Route) return yung everything to screen
+# # TODO (Route) return 'COMPUTATIONS'
 # # ! NOTE: ONLY NEEDED for computations
 # # ! NOTE: BS, DM, OT, Loan
 # # note: lahat ng parameters ay nasa body
@@ -43,7 +44,7 @@ def welcome():
 # 		dictData = ast.literal_eval(jsonData)
 # 		sayHello(dictData)
 # 		# sample usage:	print(sample['employee_name'])
-# 	response = 'Success'
+# 	response = 'Computations from monthly salary'
 # 	return response
 
 # * Complete *
@@ -52,7 +53,7 @@ def welcome():
 # note: lahat ng parameters ay nasa body
 @app.route('/sendPayRef', methods=['POST'])
 def sendPayRef():
-	return jsonify(payRef())
+	return jsonify(encrypt(str(payRef())))
 
 # * Complete *
 # TODO (Route) receive PayrollAll 
