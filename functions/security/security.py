@@ -53,12 +53,12 @@ def decrypt(enc_dict):
     return decrypted
 
 
-def main():
-    message = input("Message: ")
-    # First let us encrypt secret message
-    encrypted = encrypt(message)
-    print("Encrypted Text: " , encrypted, "\n")
-    # Let us decrypt using our original password
-    decrypted = decrypt(encrypted)
-    print(bytes.decode(decrypted))
-main()
+# def main():
+#     message = input("Message: ")
+#     # First let us encrypt secret message
+#     encrypted = encrypt(message)
+#     print("Encrypted Text: " , encrypted, "\n")
+#     # Let us decrypt using our original password
+#     decrypted = decrypt(encrypted)
+#     print(bytes.decode(decrypted))
+# main()

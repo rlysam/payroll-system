@@ -53,7 +53,9 @@ def welcome():
 # note: lahat ng parameters ay nasa body
 @app.route('/sendPayRef', methods=['POST'])
 def sendPayRef():
-	return jsonify(encrypt(str(payRef())))
+	unsafeData = payRef()
+	securedData = encrypt(str(unsafeData))
+	return jsonify(securedData)
 
 # * Complete *
 # TODO (Route) receive PayrollAll 
