@@ -10,12 +10,6 @@ import os
 from PyPDF2 import PdfFileReader, PdfFileMerger
 
 
-#import the sheet from the excel file
-# wb = openpyxl.load_workbook('data/data_payslip.xlsx')
-# wb = openpyxl.load_workbook('data/data_payslip.xlsx')
-wb = openpyxl.load_workbook('functions/pdf_generator/data/data_payslip.xlsx')
-sheet = wb.get_sheet_by_name('employees')
-
 #convert the font so it is compatible
 pdfmetrics.registerFont(TTFont('Ayar','functions/pdf_generator/ayar.ttf'))
 
@@ -30,7 +24,16 @@ start_2 = 700
 company_name = 'SGV Co./EY Philippines'
 month_year = 'January 2022'
 
-def create_payslip():
+def dfAndSaveToExcel():
+    print()
+
+
+def create_payslip(mapData):
+
+    #import the sheet from the excel file
+    wb = openpyxl.load_workbook('functions/pdf_generator/data/data_payslip.xlsx')
+    sheet = wb.get_sheet_by_name('employees')
+
     for i in range (2, 42):
         #eading values from excel file
         pay_date = sheet.cell(row = i, column = 1).value
@@ -51,7 +54,7 @@ def create_payslip():
         
 
         #Creating a pdf file and setting a naming convention
-        c = canvas.Canvas('Payslip'+'.pdf' )
+        c = canvas.Canvas('functions/email/'+'Payslip_'+str(employee_name)+'_'+ month_year + '.pdf' )
         #Page settings (size/font)
         c.setPageSize((page_width, page_height))
         c.setFont('Ayar',80)
@@ -143,5 +146,5 @@ def create_payslip():
 #         merger.append(PdfFileReader(os.path.join(files_dir,filename),'rb')) #Add every pdf to the empty file
 #     merger.write(os.path.join(files_dir,'merged_pdfs.pdf')) #Save the file
 
-create_payslip()
+# create_payslip()
 # merge_pdfs()

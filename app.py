@@ -6,6 +6,7 @@ from functions.sample_file.hello import *
 from functions.payroll_functions.PMS import *
 from functions.security.security import *
 from functions.pdf_generator.payslipgenerator import *
+from functions.email.sending_email import *
 
 # import json
 import ast
@@ -19,7 +20,7 @@ def welcome():
 # * Working
 @app.route('/testingPDFgeneratorFromFlutter', methods=['POST'])
 def generateTestPDF():
-	create_payslip() # TODO TESTING
+	create_payslip('sample') # TODO TESTING
 	response = 'PDF Generated successfully.'
 	return response
 
@@ -62,9 +63,12 @@ def receivePayrollAllAndProcess():
 		jsonData = request.get_json()
 		mapData = ast.literal_eval(jsonData)
 		openedData = decrypt(mapData)
-		# TODO 1. Call toExcelAndSendToEmail(openedData)
+
+		create_payslip(openedData)
+		sendPaySlipToEmployeeEmail()
 		# ! waiting for Ryan
 		# TODO 2. Call toFirebaseDatabase(openedData) 
+
 
 	response = 'Success. Sent receipt to employee email and transaction to database...'
 	return response
