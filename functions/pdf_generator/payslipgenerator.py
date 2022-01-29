@@ -51,7 +51,7 @@ def create_payslip():
         
 
         #Creating a pdf file and setting a naming convention
-        c = canvas.Canvas('functions/pdf_generator/data/'+str(employee_name)+'_'+ month_year + '.pdf' )
+        c = canvas.Canvas('Payslip'+'.pdf' )
         #Page settings (size/font)
         c.setPageSize((page_width, page_height))
         c.setFont('Ayar',80)
