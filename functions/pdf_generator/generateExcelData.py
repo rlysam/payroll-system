@@ -74,16 +74,16 @@ def dfAndSaveToExcel(openedData):  #dictionary of all entries
 
     i = 0
 
-# # Lagay sa column yung bagong value
-#     for key in keys:
-#         df[key][0] = openedData[keys_of_opened_data[i]]
-
-# TESTING
+# Lagay sa column yung bagong value
     for key in keys:
-        df[key][0] = keys_of_opened_data[i]+' sample value'
-        i=i+1
+        df[key][0] = openedData[keys_of_opened_data[i]]
+
+# # TESTING
+#     for key in keys:
+#         df[key][0] = keys_of_opened_data[i]+' sample value'
+#         i=i+1
     
     # save xlsx to same location
     df.to_excel(path,index=False,sheet_name='employees')
 
-dfAndSaveToExcel(9)
+# dfAndSaveToExcel(9)

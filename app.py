@@ -53,8 +53,8 @@ def receiveBS_DM_OT_LOAN():
 @app.route('/sendPayRef', methods=['POST'])
 def sendPayRef():
 	unsafeData = payRef()
-	securedData = encrypt(str(unsafeData))
-	return jsonify(securedData)
+	# securedData = encrypt(str(unsafeData))
+	return jsonify(unsafeData)
 
 # *DONE --- waiting
 @app.route('/receiveData', methods=['POST'])
@@ -62,10 +62,9 @@ def receivePayrollAllAndProcess():
 	if request.method=='POST':
 		jsonData = request.get_json()
 		mapData = ast.literal_eval(jsonData)
-		openedData = decrypt(mapData)
-
-		create_payslip(openedData)
-		sendPaySlipToEmployeeEmail()
+		# openedData = decrypt(mapData)
+		create_payslip(mapData)
+		sendPaySlipToEmployeeEmail(mapData['email'])
 		# ! waiting for Ryan
 		# TODO 2. Call toFirebaseDatabase(openedData) 
 

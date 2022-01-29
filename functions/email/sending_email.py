@@ -6,11 +6,12 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # ! WARNING: Call the generate payslip FIRST before calling this functions
-def sendPaySlipToEmployeeEmail():
+def sendPaySlipToEmployeeEmail(recipient):
 
 	password = '6&vFK3JxgNzK2H*N'
 	sender_email = 'infosec123dummy@gmail.com'
-	receiver_email = "bellosamuelb@gmail.com"  # Enter receiver address
+	receiver_email = recipient # Enter receiver address
+	# receiver_email = "bellosamuelb@gmail.com"  # Enter receiver address
 	# receiver_email = "aprilkatepascual23@gmail.com"  # Enter receiver address
 	company_name = 'SGV Co./EY Philippines'
 
