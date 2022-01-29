@@ -71,7 +71,7 @@ def create_payslip():
         c.drawString(start_2, y, str(pay_date))
         y -= spread
         
-        c.drawString(start, y, 'Employee\'s name:')
+        c.drawString(start, y, 'Employee name:')
         c.drawString(start_2, y, str(employee_name) + ' ')
         y -= spread
 
@@ -89,6 +89,9 @@ def create_payslip():
 
         c.drawString(start, y, 'Gross Pay:')
         c.drawString(start_2, y, str(gross_pay))
+        y -= spread
+        
+        c.drawString(start, y, ' ')
         y -= spread
 
         c.drawString(start, y, 'Tax:')
@@ -115,8 +118,14 @@ def create_payslip():
         c.drawString(start_2, y, str(deductions))
         y -= spread
 
+        c.drawString(start, y, ' ')
+        y -= spread
+        
         c.drawString(start, y, 'Net Pay:')
         c.drawString(start_2, y, str(net_pay))
+        y -= spread
+        
+        c.drawString(start, y, ' ')
         y -= spread
 
         c.drawString(start, y, 'Signature: ')
