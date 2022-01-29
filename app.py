@@ -18,7 +18,6 @@ def welcome():
 
 @app.route('/testingPDFgeneratorFromFlutter', methods=['POST'])
 def generateTestPDF():
-
 	create_payslip() # TODO TESTING
 	response = 'PDF Generated successfully.'
 	return response

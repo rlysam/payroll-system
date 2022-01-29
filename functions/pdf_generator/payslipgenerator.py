@@ -12,11 +12,12 @@ from PyPDF2 import PdfFileReader, PdfFileMerger
 
 #import the sheet from the excel file
 # wb = openpyxl.load_workbook('data/data_payslip.xlsx')
-wb = openpyxl.load_workbook('data/data_payslip.xlsx')
+# wb = openpyxl.load_workbook('data/data_payslip.xlsx')
+wb = openpyxl.load_workbook('functions/pdf_generator/data/data_payslip.xlsx')
 sheet = wb.get_sheet_by_name('employees')
 
 #convert the font so it is compatible
-pdfmetrics.registerFont(TTFont('Ayar','ayar.ttf'))
+pdfmetrics.registerFont(TTFont('Ayar','functions/pdf_generator/ayar.ttf'))
 
 #Page information
 page_width = 2156
@@ -59,7 +60,7 @@ def create_payslip():
         other_payment_due = sheet.cell(row = i, column = 25).value
 
         #Creating a pdf file and setting a naming convention
-        c = canvas.Canvas('data/'+str(employee_name)+'_'+ month_year + '.pdf' )
+        c = canvas.Canvas('functions/pdf_generator/data/'+str(employee_name)+'_'+ month_year + '.pdf' )
         #Page settings (size/font)
         c.setPageSize((page_width, page_height))
         c.setFont('Ayar',80)
@@ -184,8 +185,6 @@ def create_payslip():
       
         #Saving the pdf file
         c.save()
-
-
 
 # # basura ata to...
 # def merge_pdfs():
