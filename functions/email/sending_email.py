@@ -5,7 +5,7 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-
+# ! WARNING: Call the generate payslip FIRST before calling this functions
 def sendPaySlipToEmployeeEmail():
 
 	password = '6&vFK3JxgNzK2H*N'
@@ -49,7 +49,9 @@ def sendPaySlipToEmployeeEmail():
 	text = message.as_string()
 
 # Log in to server using secure context and send email
-	ssl.create_default_context()
+	context = ssl.create_default_context()
 	with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
 		server.login(sender_email, password)
 		server.sendmail(sender_email, receiver_email, text)
+
+# sendPaySlipToEmployeeEmail()

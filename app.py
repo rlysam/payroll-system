@@ -17,12 +17,12 @@ app = Flask(__name__)
 def welcome():
     return "Welcome. This is the index for InfoSec Backend. \n Visit the GitHub Repo: rlysam/payroll-system"
 
-# * Working
-@app.route('/testingPDFgeneratorFromFlutter', methods=['POST'])
-def generateTestPDF():
-	create_payslip('sample') # TODO TESTING
-	response = 'PDF Generated successfully.'
-	return response
+# # * Working
+# @app.route('/testingPDFgeneratorFromFlutter', methods=['POST'])
+# def generateTestPDF():
+# 	create_payslip('sample') # TODO TESTING
+# 	response = 'PDF Generated successfully.'
+# 	return response
 
 # TODO --- waiting for LYAH
 # *DONE  --- waiting
