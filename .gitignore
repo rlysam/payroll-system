@@ -1,4 +1,4 @@
 *.pyc
-.vscode
-.pdf
-.xlsx
+*.vscode
+*.pdf
+*.xlsx
