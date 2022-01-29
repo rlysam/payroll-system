@@ -40,6 +40,7 @@ def dfAndSaveToExcel(openedData):  #dictionary of all entries
     ]
 
     keys_of_opened_data =[
+ 'pay_date',       
  'employee_name',
  'address',
  'reference',
