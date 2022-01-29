@@ -44,30 +44,30 @@ def dfAndSaveToExcel(openedData):  #dictionary of all entries
  'address',
  'reference',
  'employer_name',
+ 
  'email',
  'job_status',
-
+ 'postcode',
+ 'grade',
+ 'department',
+ 
  'deminimis',
  'basic_salary',
  'overtime',
  'gross_pay',
- 'net_pay',
-
  'tax',
  'sss',
+
  'loan',
  'philhealth_payment',
  'hdmf',
  'deductions',
- 'postcode',
- 'gender',
- 'grade',
- 'department',
 
- 'pay_date',
+ 'net_pay',
  'philhealth_number',
  'taxable_pay',
  'pension_pay',
+ 
  'other_payment_due',
     ]
 
