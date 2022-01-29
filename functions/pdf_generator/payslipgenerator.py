@@ -5,6 +5,7 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.pdfbase.ttfonts import TTFont
+from functions.pdf_generator.generateExcelData import *
 #libraries to merge pdf files
 import os
 from PyPDF2 import PdfFileReader, PdfFileMerger
@@ -24,12 +25,8 @@ start_2 = 700
 company_name = 'SGV Co./EY Philippines'
 month_year = 'January 2022'
 
-def dfAndSaveToExcel():
-    print()
-
-
 def create_payslip(mapData):
-
+    dfAndSaveToExcel(mapData)
     #import the sheet from the excel file
     wb = openpyxl.load_workbook('functions/pdf_generator/data/data_payslip.xlsx')
     sheet = wb.get_sheet_by_name('employees')
