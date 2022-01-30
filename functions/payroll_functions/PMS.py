@@ -2,6 +2,7 @@
 import random
 import time
 import datetime
+import json
 # import string
 
 
@@ -15,11 +16,11 @@ def payRef():
     PhilHealthNumber = ("PH" + str(PhilHealthpay))
 
     payRefData = {
-        'pay_date': PayDate,
-        'reference': Reference,
-        'philhealth_number': PhilHealthNumber,
+        "pay_date": PayDate,
+        "reference": Reference,
+        "philhealth_number": PhilHealthNumber,
     }
-    return payRefData
+    return json.dumps(payRefData)
 
 # COMPUTATIONS lang function dito
 
@@ -28,9 +29,9 @@ def MonthlySalary(map):  #ito yung map na galing sa flutter
 
     # TODO (Kate) gawin  yun example ko dito
     # BS = float(BasicSalary.get()) #! before
-    BS = float( map['basic_salary'])  #! AFTER : example ito na yung galing kay Flutter
-    DM = float(map['deminimis'])
-    OT = float(map['overtime'])
+    BS = float( map["basic_salary"])  #! AFTER : example ito na yung galing kay Flutter
+    DM = float(map["deminimis"])
+    OT = float(map["overtime"])
     #BS = float(BasicSalary.get()) if '.' in BasicSalary.get() else str(BasicSalary.get())
     #DM = float(DeMinimis.get()) if '.' in DeMinimis.get() else str(DeMinimis.get())
     #OT = float(OverTime.get()) if '.' in OverTime.get() else str(OverTime.get())
@@ -42,7 +43,7 @@ def MonthlySalary(map):  #ito yung map na galing sa flutter
     M_SSS = ((BS + DM + OT) * 0.045)
     sss = "PHP " + str('%.2f' % (M_SSS))
 
-    M_Loan = float(map['loan'])
+    M_Loan = float(map["loan"])
     loan = "PHP " + str('%.2f' % (M_Loan))
 
     M_PhilHealthPayment = ((BS + DM + OT) * 0.04 / 12)
@@ -81,20 +82,18 @@ def MonthlySalary(map):  #ito yung map na galing sa flutter
     other_payment_due = (str(0))
 
     MonthlySalaryData = {
-        'sss': sss,
-        'philhealth_payment': philhealth_payment,
-        'hdmf': hdmf,
-        'tax': tax,
-        'deductions': deductions,
-        'gross_pay': gross_pay,
-        'net_pay': net_pay,
-        'deductions': deductions,
-        'gross_pay': gross_pay,
-        'net_pay': net_pay,
-        'taxable_pay': taxable_pay,
-        'pension_pay': pension_pay,
-        'other_payment_due': other_payment_due,
+        "sss": sss,
+        "philhealth_payment": philhealth_payment,
+        "hdmf": hdmf,
+        "tax": tax,
+        "net_pay": net_pay,
+        "deductions": deductions,
+        "gross_pay": gross_pay,
+        "taxable_pay": taxable_pay,
+        "pension_pay": pension_pay,
+        "other_payment_due": other_payment_due,
+
     }
-    return MonthlySalaryData
+    return json.dumps(MonthlySalaryData)
 
     # TODO (Sam) yung ibang  send to database yung buong transaction na to including yung Employee name...

@@ -32,12 +32,13 @@ def welcome():
 @app.route('/receiveAllData', methods=['POST'])
 def receivePayrollAllAndProcess():
 	if request.method=='POST':
-		jsonData = request.get_json()
-		decryptedMapFromFlutter =  decrypt(jsonData)
-		create_payslip(decryptedMapFromFlutter)
-		mapData = decryptedMapFromFlutter
+		data = request.get_data()
+		decryptedMapFromFlutter =  decrypt(data)
+		create_payslip(json.loads(decryptedMapFromFlutter))
+		mapData = json.loads(decryptedMapFromFlutter)
 		sendPaySlipToEmployeeEmail(mapData['email'],mapData['employee_name'],)
 		appendNewEntry(mapData) # append UNSECURED Map to firebase
+
 		appendNewEntry(encrypt(str(mapData))) # Append ENCRYPTED Map to firebase
 	response = 'Success. Sent receipt to employee email and transaction to database...'
 	return response
@@ -48,20 +49,22 @@ def receivePayrollAllAndProcess():
 def receiveBS_DM_OT_LOAN():
 	securedData = {}
 	if request.method=='POST':
-		jsonData = request.get_json()
-		decryptedMapFromFlutter =  decrypt(jsonData)
-		unsafeComputedData = MonthlySalary(decryptedMapFromFlutter) # Map
+		data = request.get_data()
+		decryptedMapFromFlutter =  decrypt(data)
+		unsafeComputedData = MonthlySalary(json.loads(decryptedMapFromFlutter)) # Map
+		print(unsafeComputedData)
 		securedData = encrypt(str(unsafeComputedData)) # encrypted data
-	response = jsonify(securedData)
-	return response
+		# securedData='finish'
+	# response = jsonify(securedData)
+	return securedData
 
-# *DONE 
 # *DONE 
 @app.route('/sendPayRef', methods=['POST'])
 def sendPayRef():
 	unsafeData = payRef() # Dictionary
 	securedData = encrypt(str(unsafeData))
-	return jsonify(securedData)
+	return securedData
+
 
 # Ewan eto ata yung unanng titignan
 if __name__ == '__main__':
