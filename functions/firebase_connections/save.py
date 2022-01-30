@@ -8,36 +8,7 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://payroll-a7eda-default-rtdb.asia-southeast1.firebasedatabase.app/'
 })
 
-#save data
-ref = db.reference('/')
-ref.set({
-    'employee1':{
-  'employee_name' : 'employee_name',
-  'address' : 'address',
-  'reference' : 'reference',
-  'employer_name' : 'employer_name',
-  'email' : 'email',
-  'job_status' : 'job_status',
-  'deminis' : 'deminis',
-  'basic_salary' : 'basic_salary',
-  'overtime' : 'overtime',
-  'gross_pay' : 'gross_pay',
-  'net_pay' : 'net_pay',
-  'tax' : 'tax',
-  'sss' : 'sss',
-  'loan' : 'loan',
-  'philhealth_payment' : 'philhealth_payment',
-  'hdmf' : 'hdmf',
-  'deductions' : 'deductions',
-  'postcode' : 'postcode',
-  'gender' : 'gender',
-  'grade' : 'grade',
-  'department' : 'department',
-  'pay_date' : 'pay_date',
-  'philhealth_number' : 'philhealth_number',
-  'taxable_pay' : 'taxable_pay',
-  'pension_pay' : 'pension_pay',
-  'other_payment_due' : 'other_payment_due',
-    }
-})
-
+def addEntryToDatabase(mapData):
+	#save data
+	ref = db.reference('/')
+	ref.set(mapData)

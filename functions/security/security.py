@@ -1,64 +1,53 @@
 # AES 256 encryption/decryption using pycryptodome library
 
+from Crypto.Util.Padding import pad
 from base64 import b64encode, b64decode
 import hashlib
 from Cryptodome.Cipher import AES  
 import os
 from Cryptodome.Random import get_random_bytes
+from Crypto.Util.Padding import unpad
+import json
+
 
 # Salt pa lang ang na copy paste
-def encrypt(data):
-    password = "testeithwetwoeitew"
-  
-     # generate a random salt
-    salt = get_random_bytes(AES.block_size)
+# !str(map)
+def encrypt(jsonNaString):
+    unsecuredData = str.encode(jsonNaString)
+    key = str.encode('my 32 length key................')
+    iv = str.encode('1234567890123456') #ginagawa nyang byte
+    cipher = AES.new(key, AES.MODE_CBC, iv= iv)
+    ct_bytes = cipher.encrypt(pad(unsecuredData, AES.block_size))
 
-    # use the Scrypt KDF to get a private key from the password
-    private_key = hashlib.scrypt(
-        password.encode(), salt=salt, n=2**14, r=8, p=1, dklen=32)
+    ct = b64encode(ct_bytes).decode('utf-8') # base63 -> of that base64 ... String
 
-    # create cipher configtest
-    cipher_config = AES.new(private_key, AES.MODE_GCM)
+    # result = {'secured_data':ct}
+    return ct # MAP
 
-    # return a dictionary with the encrypted text
-    cipher_text, tag = cipher_config.encrypt_and_digest(bytes(data, 'utf-8'))
+def decrypt(b64Agadito): # ! JSON with base64 value in, JSON real value out
+    key = str.encode('my 32 length key................')
+    iv = str.encode('1234567890123456') #ginagawa nyang byte
+    # fromSam = str.encode("UgEtBVfUpQGEQG7CcN6mRA==") #magiging byte
+    try:
+        # b64 = json.loads(enc_dict)
+        print(b64Agadito)
+        ct = b64decode(b64Agadito)
+        # print(ct)
+        # print(b64Agadito)
+        # print(ct)
+        # print('Hello') #dapat parehas sa baba
+        # print(ct) #dapat parehas sa baba
+        # print(b64Agadito) #parehas sa laman ng cipher
+        # newSam  = b64decode(fromSam)
+        # print(newSam)
+        # ct = fromSam #base64 text
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        pt = unpad(cipher.decrypt(ct), AES.block_size)
+        # print("The message was: ", pt.decode('utf-8')) # String value
+        print('\n\n\nPT VALUE ::: ') #base 64
+        print(pt) #base 64
+        return pt.decode('utf-8') #returns String
+        # return pt
 
-    return {
-        'cipher_text': b64encode(cipher_text).decode('utf-8'),
-        'salt': b64encode(salt).decode('utf-8'),
-        'nonce': b64encode(cipher_config.nonce).decode('utf-8'),
-        'tag': b64encode(tag).decode('utf-8'),
-    }
-
-def decrypt(enc_dict):
-    password = "testeithwetwoeitew"
-  
-    # decode the dictionary entries from base64
-    salt = b64decode(enc_dict['salt'])
-    cipher_text = b64decode(enc_dict['cipher_text'])
-    nonce = b64decode(enc_dict['nonce'])
-    tag = b64decode(enc_dict['tag'])
-    
-
-    # generate the private key from the password and salt
-    private_key = hashlib.scrypt(
-        password.encode(), salt=salt, n=2**14, r=8, p=1, dklen=32)
-
-    # create the cipher config
-    cipher = AES.new(private_key, AES.MODE_GCM, nonce=nonce)
-
-    # decrypt the cipher text
-    decrypted = cipher.decrypt_and_verify(cipher_text, tag)
-
-    return decrypted
-
-
-# def main():
-#     message = input("Message: ")
-#     # First let us encrypt secret message
-#     encrypted = encrypt(message)
-#     print("Encrypted Text: " , encrypted, "\n")
-#     # Let us decrypt using our original password
-#     decrypted = decrypt(encrypted)
-#     print(bytes.decode(decrypted))
-# main()
+    except (ValueError, KeyError):
+        print("Incorrect decryption")
