@@ -5,6 +5,7 @@ from functions.security.security import *
 from functions.pdf_generator.forPDF import *
 from functions.email.sending_email import *
 from functions.firebase_connections.append import *
+import os
 
 # import json
 import ast
@@ -40,6 +41,7 @@ def receivePayrollAllAndProcess():
 		appendNewEntry(mapData) # append UNSECURED Map to firebase
 
 		appendNewEntry(encrypt(str(mapData))) # Append ENCRYPTED Map to firebase
+		os.remove("*.pdf")
 	response = 'Success. Sent receipt to employee email and transaction to database...'
 	return response
 
