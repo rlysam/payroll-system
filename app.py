@@ -1,11 +1,10 @@
-# Gumagana na 'to, lahat ng backend calls, dito lalagay...
-
 from crypt import methods
 from flask import *
 from functions.payroll_functions.PMS import *
 from functions.security.security import *
 from functions.pdf_generator.forPDF import *
 from functions.email.sending_email import *
+from functions.firebase_connections.append import *
 
 # import json
 import ast
@@ -16,11 +15,17 @@ app = Flask(__name__)
 def welcome():
     return "Welcome. This is the index for InfoSec Backend. \n Visit the GitHub Repo: rlysam/payroll-system"
 
-# # * Working
-# @app.route('/testingPDFgeneratorFromFlutter', methods=['POST'])
-# def generateTestPDF():
-# 	create_payslip('sample') # TODO TESTING
-# 	response = 'PDF Generated successfully.'
+# # TODO --- waiting for LYAH
+# # *DONE  --- waiting
+# @app.route('/getReport', methods=['POST'])
+# def getReport():
+# 	securedData = {}
+# 	if request.method=='POST':
+# 		# ! waiting for Ryan
+# 		# TODO waiting for Ryan
+# 		# unsafeReports = getAllTransactionFromFirebase() # Map
+# 		securedData = encrypt(unsafeReports) # encrypted data
+# 	response = jsonify(securedData)
 # 	return response
 
 # ! Gayahin yung receivedInitial --- waiting
@@ -28,45 +33,35 @@ def welcome():
 def receivePayrollAllAndProcess():
 	if request.method=='POST':
 		jsonData = request.get_json()
-		create_payslip(jsonData)
-		sendPaySlipToEmployeeEmail(jsonData['email'],jsonData['employee_name'],)
-		# ! waiting for Ryan
-		# TODO 2. Call toFirebaseDatabase(openedData) 
+		decryptedMapFromFlutter =  decrypt(jsonData)
+		create_payslip(decryptedMapFromFlutter)
+		mapData = decryptedMapFromFlutter
+		sendPaySlipToEmployeeEmail(mapData['email'],mapData['employee_name'],)
+		appendNewEntry(mapData) # append UNSECURED Map to firebase
+		appendNewEntry(encrypt(str(mapData))) # Append ENCRYPTED Map to firebase
 	response = 'Success. Sent receipt to employee email and transaction to database...'
 	return response
 
-# TODO --- waiting for LYAH
-# *DONE  --- waiting
-@app.route('/getReport', methods=['POST'])
-def getReport():
-	securedData = {}
-	if request.method=='POST':
-		# ! waiting for Ryan
-		# TODO waiting for Ryan
-		# unsafeReports = getAllTransactionFromFirebase() # Map
-		securedData = encrypt(unsafeReports) # encrypted data
-	response = jsonify(securedData)
-	return response
-
+# *DONE
 # *DONE
 @app.route('/receiveInitialData', methods=['POST'])
 def receiveBS_DM_OT_LOAN():
 	securedData = {}
 	if request.method=='POST':
 		jsonData = request.get_json()
-		unsafeComputedData = MonthlySalary(jsonData) # Map
-		# print(unsafeComputedData)
-		# securedData = encrypt(str(unsafeComputedData)) # encrypted data
-	# response = jsonify(securedData)
-	response = jsonify(unsafeComputedData)
+		decryptedMapFromFlutter =  decrypt(jsonData)
+		unsafeComputedData = MonthlySalary(decryptedMapFromFlutter) # Map
+		securedData = encrypt(str(unsafeComputedData)) # encrypted data
+	response = jsonify(securedData)
 	return response
 
 # *DONE 
+# *DONE 
 @app.route('/sendPayRef', methods=['POST'])
 def sendPayRef():
-	unsafeData = payRef()
-	# securedData = encrypt(str(unsafeData))
-	return jsonify(unsafeData)
+	unsafeData = payRef() # Dictionary
+	securedData = encrypt(str(unsafeData))
+	return jsonify(securedData)
 
 # Ewan eto ata yung unanng titignan
 if __name__ == '__main__':
