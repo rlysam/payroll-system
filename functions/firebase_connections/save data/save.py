@@ -1,4 +1,4 @@
-pip install firebase_admin
+# pip install firebase_admin
 
 import firebase_admin
 import json
