@@ -59,12 +59,12 @@ def receiveBS_DM_OT_LOAN():
 	return securedData
 
 # *DONE 
-# *DONE 
 @app.route('/sendPayRef', methods=['POST'])
 def sendPayRef():
 	unsafeData = payRef() # Dictionary
 	securedData = encrypt(str(unsafeData))
 	return securedData
+
 
 # Ewan eto ata yung unanng titignan
 if __name__ == '__main__':
