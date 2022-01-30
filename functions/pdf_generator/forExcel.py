@@ -3,8 +3,12 @@ import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 
 # TODO Call this from app.py,  before calling 'create_payslip(mapData)'
 def dfAndSaveToExcel(openedData):  #dictionary of all entries
-    path = r'data/data_payslip.xlsx'
+    # path = 'functions/pdf_generator/data/data_payslip.xlsx'
+    path = 'functions/pdf_generator/data/data_payslip.xlsx'
     df = pd.read_excel(path)
+    print('\n\n')
+    print(df)
+    print('\n\n')
     # TODO  ---
     keys = [
         'Pay Date - dd/mm/yy',
@@ -76,14 +80,14 @@ def dfAndSaveToExcel(openedData):  #dictionary of all entries
 
 # Lagay sa column yung bagong value
     for key in keys:
-        df[key][0] = openedData[keys_of_opened_data[i]]
+        value = openedData[keys_of_opened_data[i]]
+        df[key][0] = value
+        i=i+1
 
-# # TESTING
-#     for key in keys:
-#         df[key][0] = keys_of_opened_data[i]+' sample value'
-#         i=i+1
-    
+    print('\n\n')
+    print('NEW:::')
+    print(df)
+    print('\n\n')
+
     # save xlsx to same location
     df.to_excel(path,index=False,sheet_name='employees')
-
-# dfAndSaveToExcel(9)

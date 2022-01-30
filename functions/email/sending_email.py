@@ -6,11 +6,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # ! WARNING: Call the generate payslip FIRST before calling this functions
-def sendPaySlipToEmployeeEmail(recipient):
+def sendPaySlipToEmployeeEmail(recipientEmail, employeeName):
 
 	password = '6&vFK3JxgNzK2H*N'
 	sender_email = 'infosec123dummy@gmail.com'
-	receiver_email = recipient # Enter receiver address
+	receiver_email = recipientEmail # Enter receiver address
 	# receiver_email = "bellosamuelb@gmail.com"  # Enter receiver address
 	# receiver_email = "aprilkatepascual23@gmail.com"  # Enter receiver address
 	company_name = 'SGV Co./EY Philippines'
@@ -28,7 +28,9 @@ def sendPaySlipToEmployeeEmail(recipient):
 	# Add body to email
 	message.attach(MIMEText(body, "plain"))
 
-	filename = "Payslip_sam_January 2022.pdf"  # In same directory as script
+	# filename = "functions/email/"+employeeName+".pdf"  # In same directory as script
+	filename = employeeName+"_PAYSLIP"+".pdf"  # In same directory as script
+	# filename = 'PAYSLIP.pdf'
 	# Open PDF file in binary mode
 	with open(filename, "rb") as attachment:
 		# Add file as application/octet-stream
@@ -55,4 +57,4 @@ def sendPaySlipToEmployeeEmail(recipient):
 		server.login(sender_email, password)
 		server.sendmail(sender_email, receiver_email, text)
 
-# sendPaySlipToEmployeeEmail()
+# sendPaySlipToEmployeeEmail('sam17.bello@ymail.com')

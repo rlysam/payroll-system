@@ -2,10 +2,9 @@
 
 from crypt import methods
 from flask import *
-from functions.sample_file.hello import *
 from functions.payroll_functions.PMS import *
 from functions.security.security import *
-from functions.pdf_generator.payslipgenerator import *
+from functions.pdf_generator.forPDF import *
 from functions.email.sending_email import *
 
 # import json
@@ -24,6 +23,18 @@ def welcome():
 # 	response = 'PDF Generated successfully.'
 # 	return response
 
+# ! Gayahin yung receivedInitial --- waiting
+@app.route('/receiveAllData', methods=['POST'])
+def receivePayrollAllAndProcess():
+	if request.method=='POST':
+		jsonData = request.get_json()
+		create_payslip(jsonData)
+		sendPaySlipToEmployeeEmail(jsonData['email'],jsonData['employee_name'],)
+		# ! waiting for Ryan
+		# TODO 2. Call toFirebaseDatabase(openedData) 
+	response = 'Success. Sent receipt to employee email and transaction to database...'
+	return response
+
 # TODO --- waiting for LYAH
 # *DONE  --- waiting
 @app.route('/getReport', methods=['POST'])
@@ -33,20 +44,21 @@ def getReport():
 		# ! waiting for Ryan
 		# TODO waiting for Ryan
 		# unsafeReports = getAllTransactionFromFirebase() # Map
-		securedData = encrypt(str(unsafeReports)) # encrypted data
+		securedData = encrypt(unsafeReports) # encrypted data
 	response = jsonify(securedData)
 	return response
 
-# *DONE 
+# *DONE
 @app.route('/receiveInitialData', methods=['POST'])
 def receiveBS_DM_OT_LOAN():
 	securedData = {}
 	if request.method=='POST':
 		jsonData = request.get_json()
-		mapData = ast.literal_eval(jsonData)
-		unsafeComputedData = MonthlySalary(mapData) # Map
-		securedData = encrypt(str(unsafeComputedData)) # encrypted data
-	response = jsonify(securedData)
+		unsafeComputedData = MonthlySalary(jsonData) # Map
+		# print(unsafeComputedData)
+		# securedData = encrypt(str(unsafeComputedData)) # encrypted data
+	# response = jsonify(securedData)
+	response = jsonify(unsafeComputedData)
 	return response
 
 # *DONE 
@@ -55,22 +67,6 @@ def sendPayRef():
 	unsafeData = payRef()
 	# securedData = encrypt(str(unsafeData))
 	return jsonify(unsafeData)
-
-# *DONE --- waiting
-@app.route('/receiveData', methods=['POST'])
-def receivePayrollAllAndProcess():
-	if request.method=='POST':
-		jsonData = request.get_json()
-		mapData = ast.literal_eval(jsonData)
-		# openedData = decrypt(mapData)
-		create_payslip(mapData)
-		sendPaySlipToEmployeeEmail(mapData['email'])
-		# ! waiting for Ryan
-		# TODO 2. Call toFirebaseDatabase(openedData) 
-
-
-	response = 'Success. Sent receipt to employee email and transaction to database...'
-	return response
 
 # Ewan eto ata yung unanng titignan
 if __name__ == '__main__':
