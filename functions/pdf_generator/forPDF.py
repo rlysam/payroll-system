@@ -43,11 +43,12 @@ def create_payslip(mapData):
 
         tax = sheet.cell(row = i, column = 15).value
         sss = sheet.cell(row = i, column = 16).value
-        philhealth_payment = sheet.cell(row = i, column = 17).value
-        hdmf = sheet.cell(row = i, column = 18).value
-        deductions = sheet.cell(row = i, column = 19).value
+        loan = sheet.cell(row = i, column = 17).value
+        philhealth_payment = sheet.cell(row = i, column = 18).value
+        hdmf = sheet.cell(row = i, column = 19).value
+        deductions = sheet.cell(row = i, column = 20).value
 
-        net_pay = sheet.cell(row = i, column = 20).value
+        net_pay = sheet.cell(row = i, column = 21).value
 
         #Creating a pdf file and setting a naming convention
         c = canvas.Canvas(str(employee_name)+'_PAYSLIP'+'.pdf' )
@@ -102,6 +103,10 @@ def create_payslip(mapData):
 
         c.drawString(start, y, 'SSS:')
         c.drawString(start_2, y, str(sss))
+        y -= spread
+
+        c.drawString(start, y, 'Loan:')
+        c.drawString(start_2, y, str(loan))
         y -= spread
 
         c.drawString(start, y, 'PhilHealth Payment:')

@@ -30,6 +30,7 @@ def dfAndSaveToExcel(openedData):  #dictionary of all entries
          'Tax',
          'SSS',
         
+        'Loan',
          'PhilHealth Payment',
          'HDMF (Pag-IBIG)',
          'Deductions',
@@ -62,6 +63,7 @@ def dfAndSaveToExcel(openedData):  #dictionary of all entries
  'tax',
  'sss',
 
+ 'loan',
  'philhealth_payment',
  'hdmf',
  'deductions',

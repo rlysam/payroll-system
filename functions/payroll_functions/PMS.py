@@ -43,6 +43,9 @@ def MonthlySalary(map):  #ito yung map na galing sa flutter
     M_SSS = ((BS + DM + OT) * 0.045)
     sss = "PHP " + str('%.2f' % (M_SSS))
 
+    M_Loan = float(map["loan"])
+    loan = "PHP " + str('%.2f' % (M_Loan))
+
     M_PhilHealthPayment = ((BS + DM + OT) * 0.04 / 12)
     philhealth_payment = "PHP " + str('%.2f' % (M_PhilHealthPayment))
 
@@ -66,7 +69,7 @@ def MonthlySalary(map):  #ito yung map na galing sa flutter
 
     tax = "PHP " + str('%.2f' % (MTax))
 
-    Deduct = (MTax + M_SSS + M_PhilHealthPayment + M_HDMF)
+    Deduct = (MTax + M_SSS + M_Loan + M_PhilHealthPayment + M_HDMF)
     deductions = "PHP " + str('%.2f' % (Deduct))
 
     gross_pay = "PHP " + str('%.2f' % (BS + DM + OT))
