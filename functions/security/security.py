@@ -40,7 +40,6 @@ def decrypt(b64Agadito): # ! JSON with base64 value in, JSON real value out
         # print(b64Agadito) #parehas sa laman ng cipher
         # newSam  = b64decode(fromSam)
         # print(newSam)
-
         # ct = fromSam #base64 text
         cipher = AES.new(key, AES.MODE_CBC, iv)
         pt = unpad(cipher.decrypt(ct), AES.block_size)
