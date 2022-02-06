@@ -38,9 +38,8 @@ def receivePayrollAllAndProcess():
 		create_payslip(json.loads(decryptedMapFromFlutter))
 		mapData = json.loads(decryptedMapFromFlutter)
 		sendPaySlipToEmployeeEmail(mapData['email'],mapData['employee_name'],)
-		appendNewEntry(mapData) # append UNSECURED Map to firebase
-
-		appendNewEntry(encrypt(str(mapData))) # Append ENCRYPTED Map to firebase
+		dataToFirebase = encrypt(str(mapData))
+		appendNewEntry(dataToFirebase) # Append ENCRYPTED Map to firebase
 		os.remove("*.pdf")
 	response = 'Success. Sent receipt to employee email and transaction to database...'
 	return response

@@ -10,4 +10,17 @@ firebase_admin.initialize_app(cred, {
 
 #retrieve data
 ref = db.reference('/')
-print(ref.get())
+
+data = ref.get()
+
+def listAllParsed():
+	for key in data:
+		print(key, data[key])
+		print('\n\n')
+
+def deleteAll():
+	for key, value in data.items():
+		ref.child(key).set({})
+
+listAllParsed()
+# deleteAll()
