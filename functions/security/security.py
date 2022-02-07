@@ -14,8 +14,8 @@ import json
 # !str(map)
 def encrypt(jsonNaString):
     unsecuredData = str.encode(jsonNaString)
-    key = str.encode('my 32 length key................')
-    iv = str.encode('1234567890123456') #ginagawa nyang byte
+    key = str.encode(r'me%sQ%xs6rn4MWMYs4!&5Qhsh%VbZ^6d')
+    iv = str.encode(r'2&4HSYK9RKk$$Bzu') #ginagawa nyang byte
     cipher = AES.new(key, AES.MODE_CBC, iv= iv)
     ct_bytes = cipher.encrypt(pad(unsecuredData, AES.block_size))
 
@@ -25,8 +25,8 @@ def encrypt(jsonNaString):
     return ct # MAP
 
 def decrypt(b64Agadito): # ! JSON with base64 value in, JSON real value out
-    key = str.encode('my 32 length key................')
-    iv = str.encode('1234567890123456') #ginagawa nyang byte
+    key = str.encode(r'me%sQ%xs6rn4MWMYs4!&5Qhsh%VbZ^6d')
+    iv = str.encode(r'2&4HSYK9RKk$$Bzu') #ginagawa nyang byte
     # fromSam = str.encode("UgEtBVfUpQGEQG7CcN6mRA==") #magiging byte
     try:
         # b64 = json.loads(enc_dict)

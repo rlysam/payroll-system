@@ -5,6 +5,7 @@ import datetime
 import json
 # import string
 
+from functions.security.security import *
 
 def payRef():
     PayDate = (time.strftime("%d/%m/%y"))
@@ -46,7 +47,7 @@ def MonthlySalary(map):  #ito yung map na galing sa flutter
     M_Loan = float(map["loan"])
     loan = "PHP " + str('%.2f' % (M_Loan))
 
-    M_PhilHealthPayment = ((BS + DM + OT) * 0.04 / 12)
+    M_PhilHealthPayment = ((BS + DM + OT) * 0.04 / 2)
     philhealth_payment = "PHP " + str('%.2f' % (M_PhilHealthPayment))
 
     M_HDMF = (100)

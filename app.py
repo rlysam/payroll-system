@@ -5,6 +5,7 @@ from functions.security.security import *
 from functions.pdf_generator.forPDF import *
 from functions.email.sending_email import *
 from functions.firebase_connections.append import *
+# from functions.firebase_connections.getdata import *
 import os
 
 # import json
@@ -16,18 +17,14 @@ app = Flask(__name__)
 def welcome():
     return "Welcome. This is the index for InfoSec Backend. \n Visit the GitHub Repo: rlysam/payroll-system"
 
-# # TODO --- waiting for LYAH
-# # *DONE  --- waiting
-# @app.route('/getReport', methods=['POST'])
-# def getReport():
-# 	securedData = {}
-# 	if request.method=='POST':
-# 		# ! waiting for Ryan
-# 		# TODO waiting for Ryan
-# 		# unsafeReports = getAllTransactionFromFirebase() # Map
-# 		securedData = encrypt(unsafeReports) # encrypted data
-# 	response = jsonify(securedData)
-# 	return response
+# *DONE 
+@app.route('/getAllRecords', methods=['POST'])
+def sendAllRecord():
+	stillEncryptedDataFromFirebase = listAllParsed() # Dictionary
+	# ! String na may comman 
+	jsonData = stillEncryptedDataFromFirebase
+	return jsonData
+
 
 # ! Gayahin yung receivedInitial --- waiting
 @app.route('/receiveAllData', methods=['POST'])
@@ -38,7 +35,7 @@ def receivePayrollAllAndProcess():
 		create_payslip(json.loads(decryptedMapFromFlutter))
 		mapData = json.loads(decryptedMapFromFlutter)
 		sendPaySlipToEmployeeEmail(mapData['email'],mapData['employee_name'],)
-		dataToFirebase = encrypt(str(mapData))
+		dataToFirebase = encrypt(str(json.dumps(mapData)))
 		appendNewEntry(dataToFirebase) # Append ENCRYPTED Map to firebase
 		os.remove("*.pdf")
 	response = 'Success. Sent receipt to employee email and transaction to database...'
